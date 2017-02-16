@@ -38,7 +38,7 @@ import sys
 from xml.dom.minidom import parse
 from re import sub
 
-columnSeparator = "<>"
+columnSeparator = "|"
 
 # Dictionary of months used for date transformation
 MONTHS = {'Jan':'01','Feb':'02','Mar':'03','Apr':'04','May':'05','Jun':'06',\
