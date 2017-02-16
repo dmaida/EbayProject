@@ -217,8 +217,17 @@ item elements. Your job is to mirror this functionality to create all of the nec
 """
 def parseXml(f):
     dom = parse(f) # creates a dom object for the supplied xml file
-    
+
     Items = dom.getElementsByTagName('Item')
+
+    for item in Items:
+        Bids = item.getElementsByTagName('Bid')
+        writeSeller(item)
+        writeItem(item)
+        writeCategories(item)
+        item_id = itemID(item)
+        for bid in Bids: 
+            writeBid(bid, item_id)
 
     """
     TO DO: traverse the dom tree to extract information for your SQL tables
