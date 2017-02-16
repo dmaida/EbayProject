@@ -4,18 +4,18 @@ DROP TABLE if exists Category;
 DROP TABLE if exists Bid;
 
 CREATE TABLE Item(	
-                    itemID integer,
+                    itemID integer PRIMARY KEY,
                     name varchar,
+                    currently varchar,
+                    buy_price varchar,
+                    first_bid varchar,
+                    started timestamp,
+                    ends timestamp,
                     SellerID varchar,
-					          first_bid varchar,
-                  	buy_price varchar,
-                  	currently varchar,
-                  	started timestamp,
-                  	ends timestamp,
                   	description varchar(4000));
 
 CREATE TABLE User(	
-                    userID varchar,
+                    userID varchar PRIMARY KEY,
                   	rating integer,
                   	location varchar,
                   	country varchar);
@@ -23,7 +23,7 @@ CREATE TABLE User(
 CREATE TABLE Category(	
                     itemID integer,
                     name varchar,
-                    PRIMARY KEY (itemID, name)
+                    PRIMARY KEY (itemID, name),
                     FOREIGN KEY(itemID) references Item(itemID));
 
 CREATE TABLE Bid(	
