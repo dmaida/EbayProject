@@ -36,12 +36,3 @@ CREATE TABLE Bid(
                  	FOREIGN KEY(userID) references User(userID));
 
 
-.separator |
-
-.import item.dat Item
-
-.import user.dat User
-
-.import category.dat Category
-
-.import bid.dat Bid
