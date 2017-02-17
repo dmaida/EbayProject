@@ -1,6 +1,8 @@
 #!/bin/bash
 
-python fileParser.py ./ebay_data/items-*.xml 
+#python fileParser.py ./ebay_data/items-*.xml use this one for personal use with files
+
+python fileParser.py ./usr/class/cs351/project/ebay_data/items-*.xml
 
 sort user.dat | uniq > user.out
 mv -f user.out user.dat
