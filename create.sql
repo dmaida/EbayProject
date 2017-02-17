@@ -6,9 +6,9 @@ DROP TABLE if exists Bid;
 CREATE TABLE Item(	
                     itemID integer PRIMARY KEY,
                     name varchar,
-                    currently varchar,
-                    buy_price varchar,
-                    first_bid varchar,
+                    currently money,
+                    buy_price money,
+                    first_bid money,
                     started timestamp,
                     ends timestamp,
                     SellerID varchar,
@@ -28,12 +28,12 @@ CREATE TABLE Category(
 
 CREATE TABLE Bid(	
                     itemID integer,
-                 	  userID varchar,
+                 	userID varchar,
                     time timestamp,
-                 	  amount money,
-                 	  PRIMARY KEY (itemID, time),
-                 	  FOREIGN KEY(itemID) references Item(itemID),
-                 	  FOREIGN KEY(userID) references User(userID));
+                 	amount money,
+                 	PRIMARY KEY (itemID, time),
+                 	FOREIGN KEY(itemID) references Item(itemID),
+                 	FOREIGN KEY(userID) references User(userID));
 
 
 .separator |
