@@ -21,6 +21,8 @@ Archive:
 fileParser.py................parsing program that converts .xml to .dat
 create.sql..................sql program that converts .dat files to .db
 runParser.sh.................shell script to execute necessary programs
-queries/..................folder containing 7 sql queries to run on .db
+load.txt................................................file to load db
+query[1-7].sql................................test queries to run on db
+design.pdf................................................schema design
 README.txt....................................................this file
 
