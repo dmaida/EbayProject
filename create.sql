@@ -28,9 +28,9 @@ CREATE TABLE Category(
                     FOREIGN KEY(itemID) references Item(itemID));
 
 CREATE TABLE Bid(
-                    itemID integer,
+                  itemID integer,
                  	userID varchar,
-                    time timestamp,
+                  time timestamp,
                  	amount money,
                  	PRIMARY KEY (itemID, time),
                  	FOREIGN KEY(itemID) references Item(itemID),
