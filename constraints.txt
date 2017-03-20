@@ -10,28 +10,55 @@ often referred to as Foreign Key constraints.)
 we grade your Trigger constraints, if you have any.
 
 
-Constraints for Users
+PRIMARY KEY/UNIQUE
+
 1. No two users can share the same User ID.
-2. All sellers and bidders must already exist as users.
---Constraints for Items--
+  -- all users are unique
+    userID PRIMARY KEY for User
+
 3. No two items can share the same Item ID.
-4. Every bid must correspond to an actual item.
-5. The items for a given category must all exist.
+  --all items are unique
+    itemID PRIMARY KEY for Item
+
 6. An item cannot belong to a particular category more than once.
-7. The end time for an auction must always be after its start time.
+  --all item is listed for a particular category only once
+    (itemID, name) PRIMARY KEY for Category
+
+REFERENTIAL INTEGRITY
+
+2. All sellers and bidders must already exist as users.
+  -- all sellers are users, all bidders are users.
+    Item(SellerID) references User(userID) 
+    Bid(userID) references User(userID)
+
+4. Every bid must correspond to an actual item.
+  -- all bids are on actual items
+    Bid(itemID) references Item(itemID)
+
+5. The items for a given category must all exist.
+  --all categories are associated with actual items.
+    Category(itemID) references Item(itemID)
+
+
+--Constraints for Items--
+
+7. The end time for an auction must always be after its start time. (ROW-LEVEL CHECK)
 8. The Current_Price of an item must always match the Amount of the most recent bid for
-that item.
+that item. (TRIGGER)
+
 --Constraints for Bidding--
-9. A user may not bid on an item he or she is also selling.
-10. No auction may have two bids at the exact same time.
-11. No auction may have a bid before its start time or after its end time.
-12. No user can make a bid of the same amount to the same item more than once.
+9. A user may not bid on an item he or she is also selling. (TRIGGER)
+10. No auction may have two bids at the exact same time.  ((itemID, time) PRIMARY KEY for Bid)
+
+11. No auction may have a bid before its start time or after its end time. (TRIGGER)
+12. No user can make a bid of the same amount to the same item more than once. (TRIGGER)
 13. In every auction, the Number_of_Bids attribute corresponds to the actual number of
-bids for that particular item.
+bids for that particular item. (ROW-LEVEL CHECK?????????)
 14. Any new bid for a particular item must have a higher amount than any of the previous
-bids for that particular item.
+bids for that particular item. (TRIGGER)
+
 --Constraints for Time--
 15. All new bids must be placed at the time which matches the current time of your
-AuctionBase system.
+AuctionBase system. (TRIGGER)
 16. The current time of your AuctionBase system can only advance forward in time, not
-backward in time
+backward in time (TRIGGER)
