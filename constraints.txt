@@ -28,7 +28,7 @@ REFERENTIAL INTEGRITY
 
 2. All sellers and bidders must already exist as users.
   -- all sellers are users, all bidders are users.
-    Item(SellerID) references User(userID) 
+    Item(SellerID) references User(userID)
     Bid(userID) references User(userID)
 
 4. Every bid must correspond to an actual item.
@@ -39,6 +39,16 @@ REFERENTIAL INTEGRITY
   --all categories are associated with actual items.
     Category(itemID) references Item(itemID)
 
+TRIGGERS
+9. A user may not bid on an item he or she is also selling.
+    --cannot place bid on item.
+      trigger1_add.sql
+
+11. No auction may have a bid before its start time or after its end time.
+    --
+      trigger2_add.sql
+
+
 
 --Constraints for Items--
 
@@ -47,10 +57,8 @@ REFERENTIAL INTEGRITY
 that item. (TRIGGER)
 
 --Constraints for Bidding--
-9. A user may not bid on an item he or she is also selling. (TRIGGER)
-10. No auction may have two bids at the exact same time.  ((itemID, time) PRIMARY KEY for Bid)
 
-11. No auction may have a bid before its start time or after its end time. (TRIGGER)
+10. No auction may have two bids at the exact same time.  ((itemID, time) PRIMARY KEY for Bid)
 12. No user can make a bid of the same amount to the same item more than once. (TRIGGER)
 13. In every auction, the Number_of_Bids attribute corresponds to the actual number of
 bids for that particular item. (ROW-LEVEL CHECK?????????)
