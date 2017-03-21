@@ -1,4 +1,4 @@
-Design your constraints: Create a file called constraints.txt – in this file, you will
+dDesign your constraints: Create a file called constraints.txt – in this file, you will
 specify,in plain English, how you implemented each of the 16 constraints in your database
 schema. Specifically, for each constraint, you need to state:
 

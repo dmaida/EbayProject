@@ -1,16 +1,11 @@
--- 9. A user may not bid on an item he or she is also selling. (TRIGGER):
-
-/*
-Here we want to check that the userID from the Bid table against
-userID in the Item table. If the userID and SellerID are equal raise an error.
-*/
+-- 8. The Current_Price of an item must always match the Amount of the most recent bid for that item. (TRIGGER)
 
 PRAGMA foreign_keys = ON;
-drop trigger if exists trigger_1;
-CREATE TRIGGER trigger_1
+drop trigger if exists trigger_8;
+CREATE TRIGGER trigger_8
 after insert on Bid
 for each row
-when select * from Bid natural join Item where (Bid.userID == Item.SellerID)
+when (select * from (select Item.itemID, Item.currently, max(Bid.amount) as maxBid from Item join Bid on (Item.itemID == Bid.itemID) group by Item.itemID) where (currently != maxBid))
 begin
-select raise(rollback, 'User may not bid on an item they are selling.');
-end
+select raise(rollback, 'Current price of item must match Amount of most recent bid.');
+end;

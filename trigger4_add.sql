@@ -1,9 +1,8 @@
--- Any new bid for a particular item must have a higher amount than any of the previous bids for that particular item. (TRIGGER)
+-- 12. No user can make a bid of the same amount to the same item more than once.
 
 PRAGMA foreign_keys = ON;
-
-drop TRIGGER if exists price_constraint;
-create TRIGGER price_constraint
+drop TRIGGER if exists multipleBid_amount;
+CREATE TRIGGER multipleBid_amount
 after INSERT on bid
 for each row
 when New.Amount <= (select currently from Item where Item.ItemID = New.ItemID)
