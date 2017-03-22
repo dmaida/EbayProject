@@ -3,9 +3,11 @@
 PRAGMA foreign_keys = ON;
 drop trigger if exists trigger_8;
 CREATE TRIGGER trigger_8
-after insert on Bid
+after INSERT on Bid
 for each row
-when (select * from (select Item.itemID, Item.currently, max(Bid.amount) as maxBid from Item join Bid on (Item.itemID == Bid.itemID) group by Item.itemID) where (currently != maxBid))
+when New.amount > (select currently from Item where Item.itemID = New.itemID)
 begin
-select raise(rollback, 'Current price of item must match Amount of most recent bid.');
+  UPDATE Item
+  SET currently = New.Amount
+  WHERE ItemID = New.ItemID;
 end;

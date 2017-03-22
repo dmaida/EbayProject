@@ -3,9 +3,9 @@
 PRAGMA foreign_keys = ON;
 drop TRIGGER if exists multipleBid_amount;
 CREATE TRIGGER multipleBid_amount
-after INSERT on bid
+before INSERT on Bid
 for each row
-when New.Amount <= (select currently from Item where Item.ItemID = New.ItemID)
+when New.Amount <= (select currently from Item where Item.itemID = New.itemID)
 begin
 select raise(rollback, 'Bid amount must be greater than the current bid.');
 end;
