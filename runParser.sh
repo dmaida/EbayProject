@@ -16,10 +16,10 @@ sqlite3 ebayD.db < trigger2_add.sql
 sqlite3 ebayD.db < trigger3_add.sql
 sqlite3 ebayD.db < trigger4_add.sql
 
-sqlite3 ebayD.db < query1.sql
-sqlite3 ebayD.db < query2.sql
-sqlite3 ebayD.db < query3.sql
-sqlite3 ebayD.db < query4.sql
-sqlite3 ebayD.db < query5.sql
-sqlite3 ebayD.db < query6.sql
-sqlite3 ebayD.db < query7.sql
+sqlite3 ebayD.db < queries/query1.sql
+sqlite3 ebayD.db < queries/query2.sql
+sqlite3 ebayD.db < queries/query3.sql
+sqlite3 ebayD.db < queries/query4.sql
+sqlite3 ebayD.db < queries/query5.sql
+sqlite3 ebayD.db < queries/query6.sql
+sqlite3 ebayD.db < queries/query7.sql
