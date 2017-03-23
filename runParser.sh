@@ -11,10 +11,12 @@ mv -f user.out user.dat
 sqlite3 ebayD.db < create.sql
 sqlite3 ebayD.db < load.txt
 
-sqlite3 ebayD.db < trigger1_add.sql
-sqlite3 ebayD.db < trigger2_add.sql
-sqlite3 ebayD.db < trigger3_add.sql
-sqlite3 ebayD.db < trigger4_add.sql
+sqlite3 ebayD.db < trigger8_add.sql
+sqlite3 ebayD.db < trigger9_add.sql
+sqlite3 ebayD.db < trigger11_add.sql
+sqlite3 ebayD.db < trigger12_add.sql
+
+sqlite3 ebayD.db < trigger16_add.sql
 
 sqlite3 ebayD.db < queries/query1.sql
 sqlite3 ebayD.db < queries/query2.sql

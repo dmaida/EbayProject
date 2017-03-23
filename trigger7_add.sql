@@ -1,1 +1,0 @@
--- 16. The current time of your AuctionBase system can only advance forward in time, not backward in time (TRIGGER)

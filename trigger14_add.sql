@@ -2,8 +2,8 @@
 
 PRAGMA foreign_keys = ON;
 
-drop TRIGGER if exists price_constraint;
-create TRIGGER price_constraint
+drop TRIGGER if exists trigger_14;
+create TRIGGER trigger_14
 after INSERT on bid
 for each row
 when New.Amount <= (select currently from Item where Item.ItemID = New.ItemID)
