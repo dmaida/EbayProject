@@ -1,4 +1,4 @@
-dDesign your constraints: Create a file called constraints.txt – in this file, you will
+Design your constraints: Create a file called constraints.txt – in this file, you will
 specify,in plain English, how you implemented each of the 16 constraints in your database
 schema. Specifically, for each constraint, you need to state:
 
@@ -42,11 +42,11 @@ REFERENTIAL INTEGRITY
 TRIGGERS
 9. A user may not bid on an item he or she is also selling.
     --cannot place bid on item.
-      trigger1_add.sql
+      trigger9_add.sql
 
 11. No auction may have a bid before its start time or after its end time.
     --
-      trigger2_add.sql
+      trigger11_add.sql
 
 
 
@@ -55,15 +55,15 @@ TRIGGERS
 7. The end time for an auction must always be after its start time. (ROW-LEVEL CHECK)
 8. The Current_Price of an item must always match the Amount of the most recent bid for
 that item. (TRIGGER)
+      trigger8_add.sql
 
 --Constraints for Bidding--
 
 10. No auction may have two bids at the exact same time.  ((itemID, time) PRIMARY KEY for Bid)
 12. No user can make a bid of the same amount to the same item more than once. (TRIGGER)
-13. In every auction, the Number_of_Bids attribute corresponds to the actual number of
-bids for that particular item. (ROW-LEVEL CHECK?????????)
-14. Any new bid for a particular item must have a higher amount than any of the previous
-bids for that particular item. (TRIGGER)
+      trigger12_add.sql
+13. In every auction, the Number_of_Bids attribute corresponds to the actual number of bids for that particular item. (ROW-LEVEL CHECK)
+14. Any new bid for a particular item must have a higher amount than any of the previous bids for that particular item. (TRIGGER)
 
 --Constraints for Time--
 15. All new bids must be placed at the time which matches the current time of your

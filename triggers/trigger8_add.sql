@@ -9,5 +9,5 @@ when New.amount > (select currently from Item where Item.itemID = New.itemID)
 begin
   UPDATE Item
   SET currently = New.Amount
-  WHERE ItemID = New.ItemID;
+  WHERE itemID = New.ItemID;
 end;
