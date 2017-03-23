@@ -1,15 +1,3 @@
-Design your constraints: Create a file called constraints.txt – in this file, you will
-specify,in plain English, how you implemented each of the 16 constraints in your database
-schema. Specifically, for each constraint, you need to state:
-
-1) How the constraint was implemented – did you choose to use a Key constraint
-(using PRIMARY KEY or UNIQUE), a Referential Integrity constraint, a CHECK
-constraint, or a Trigger? (Note that in SQLite, Referential Integrity constraints are
-often referred to as Foreign Key constraints.)
-2) Which file(s) contain the constraint implementation – this will be useful for us when
-we grade your Trigger constraints, if you have any.
-
-
 PRIMARY KEY/UNIQUE
 
 1. No two users can share the same User ID.
@@ -44,8 +32,8 @@ REFERENTIAL INTEGRITY
     Category(itemID) references Item(itemID)
 
 ROW LEVEL CHECK
-7. The end time for an auction must always be after its start time. (ROW-LEVEL CHECK)
-  --In the create.sql we have a Row-Level constraint in the create.sql file.
+7. The end time for an auction must always be after its start time.
+  --In the create.sql we have a Row-Level check in the create.sql file.
       create.sql
 
 TRIGGERS
