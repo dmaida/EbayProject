@@ -24,6 +24,10 @@ PRIMARY KEY/UNIQUE
   --all item is listed for a particular category only once
     (itemID, name) PRIMARY KEY for Category
 
+10. No auction may have two bids at the exact same time.
+  --((itemID, time) PRIMARY KEY for Bid)
+
+
 REFERENTIAL INTEGRITY
 
 2. All sellers and bidders must already exist as users.
@@ -39,34 +43,34 @@ REFERENTIAL INTEGRITY
   --all categories are associated with actual items.
     Category(itemID) references Item(itemID)
 
+ROW LEVEL CHECK
+7. The end time for an auction must always be after its start time. (ROW-LEVEL CHECK)
+  --In the create.sql we have a Row-Level constraint in the create.sql file.
+      create.sql
+
 TRIGGERS
+8. The Current_Price of an item must always match the Amount of the most recent bid for that item.
+      trigger8_add.sql
+
 9. A user may not bid on an item he or she is also selling.
     --cannot place bid on item.
       trigger9_add.sql
 
 11. No auction may have a bid before its start time or after its end time.
-    --
       trigger11_add.sql
 
-
-
---Constraints for Items--
-
-7. The end time for an auction must always be after its start time. (ROW-LEVEL CHECK)
-8. The Current_Price of an item must always match the Amount of the most recent bid for
-that item. (TRIGGER)
-      trigger8_add.sql
-
---Constraints for Bidding--
-
-10. No auction may have two bids at the exact same time.  ((itemID, time) PRIMARY KEY for Bid)
 12. No user can make a bid of the same amount to the same item more than once. (TRIGGER)
       trigger12_add.sql
-13. In every auction, the Number_of_Bids attribute corresponds to the actual number of bids for that particular item. (ROW-LEVEL CHECK)
-14. Any new bid for a particular item must have a higher amount than any of the previous bids for that particular item. (TRIGGER)
 
---Constraints for Time--
+13. In every auction, the Number_of_Bids attribute corresponds to the actual
+number of bids for that particular item.
+      trigger13_add.sql
+
+14. Any new bid for a particular item must have a higher amount than any of the previous bids for that particular item.
+      trigger14_add.sql
+
 15. All new bids must be placed at the time which matches the current time of your
-AuctionBase system. (TRIGGER)
-16. The current time of your AuctionBase system can only advance forward in time, not
-backward in time (TRIGGER)
+      trigger15_add.sql
+
+16. The current time of your AuctionBase system can only advance forward in time, not backward in time.
+      trigger16_add.sql

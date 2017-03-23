@@ -6,6 +6,7 @@ sqlite3 AuctionBase.db < triggers/trigger8_add.sql
 sqlite3 AuctionBase.db < triggers/trigger9_add.sql
 sqlite3 AuctionBase.db < triggers/trigger11_add.sql
 sqlite3 AuctionBase.db < triggers/trigger12_add.sql
+sqlite3 AuctionBase.db < triggers/trigger13_add.sql
 sqlite3 AuctionBase.db < triggers/trigger14_add.sql
 sqlite3 AuctionBase.db < triggers/trigger15_add.sql
 sqlite3 AuctionBase.db < triggers/trigger16_add.sql

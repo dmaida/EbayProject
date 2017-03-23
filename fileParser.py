@@ -11,24 +11,24 @@ functions for parsing, including:
 
 1) Directory handling -- the parser takes a list of eBay xml files
 and opens each file inside of a loop. You just need to fill in the rest.
-2) Dollar value conversions -- the xml files store dollar value amounts in 
+2) Dollar value conversions -- the xml files store dollar value amounts in
 a string like $3,453.23 -- we provide a function to convert it to a string
 like XXXXX.xx.
-3) Date/time conversions -- the xml files store dates/ times in the form 
+3) Date/time conversions -- the xml files store dates/ times in the form
 Mon-DD-YY HH:MM:SS -- we wrote a function (transformDttm) that converts to the
 for YYYY-MM-DD HH:MM:SS, which will sort chronologically in SQL.
 4) A function to get the #PCDATA of a given element (returns the empty string
 if the element is not of #PCDATA type)
 5) A function to get the #PCDATA of the first subelement of a given element with
-a given tagname. (returns the empty string if the element doesn't exist or 
+a given tagname. (returns the empty string if the element doesn't exist or
 is not of #PCDATA type)
 6) A function to get all elements of a specific tag name that are children of a
 given element
 7) A function to get only the first such child
 
 Your job is to implement the parseXml function, which is invoked on each file by
-the main function. We create the dom for you; the rest is up to you! Get familiar 
-with the functions at http://docs.python.org/library/xml.dom.minidom.html and 
+the main function. We create the dom for you; the rest is up to you! Get familiar
+with the functions at http://docs.python.org/library/xml.dom.minidom.html and
 http://docs.python.org/library/xml.dom.html
 
 Happy parsing!
@@ -87,7 +87,7 @@ Return the text associated with the given element (which must have type
 """
 def getElementText(elem):
     if len(elem.childNodes) == 1:
-        return pcdata(elem) 
+        return pcdata(elem)
     return ''
 
 """
@@ -110,7 +110,7 @@ Converts month to a number, e.g. 'Dec' to '12'
 """
 def transformMonth(mon):
     if mon in MONTHS:
-        return MONTHS[mon] 
+        return MONTHS[mon]
     else:
         return mon
 
@@ -156,10 +156,11 @@ def writeItem(item):
     buy_price = transformDollar(getElementTextByTagNameNR(item,'Buy_Price'))
     if (buy_price == ''): buy_price = 'NULL'
     first_bid = transformDollar(getElementTextByTagNameNR(item, 'First_Bid'))
+    number_of_bids = getElementTextByTagNameNR(item, 'Number_of_Bids')
     started = transformDttm(getElementTextByTagNameNR(item, 'Started'))
     ends = transformDttm(getElementTextByTagNameNR(item, 'Ends'))
     description = getElementTextByTagNameNR(item, 'Description')
-    writeLine(item_file, [itemID, name, currently, buy_price, first_bid, started, ends, sellerID, description])
+    writeLine(item_file, [itemID, name, currently, buy_price, first_bid,number_of_bids, started, ends, sellerID, description])
 
 
 def writeSeller(item):
@@ -229,7 +230,7 @@ def parseXml(f):
         writeItem(item)
         writeCategories(item)
         item_id = itemID(item)
-        for bid in Bids: 
+        for bid in Bids:
             writeBid(bid, item_id)
 
     """

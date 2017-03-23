@@ -10,8 +10,9 @@ CREATE TABLE Item(
                     currently money,
                     buy_price money,
                     first_bid money,
+                    number_of_bids integer,
                     started timestamp,
-                    ends timestamp,
+                    ends timestamp   CHECK (julianday(ends) > julianday(started)),
                     SellerID string references User,
                   	description varchar(4000));
 
@@ -38,4 +39,3 @@ CREATE TABLE Bid(
 
 CREATE TABLE CurrentTime(currtime string PRIMARY KEY);
 INSERT into CurrentTime values ('2001-12-20 00:00:01');
-SELECT currtime from CurrentTime;
