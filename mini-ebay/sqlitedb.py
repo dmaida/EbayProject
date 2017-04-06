@@ -1,6 +1,6 @@
 import web
 
-db = web.database(dbn='sqlite', db='auctions.db')
+db = web.database(dbn='sqlite', db='AuctionBase.db')
 
 ######################BEGIN HELPER METHODS######################
 
@@ -125,7 +125,7 @@ def getWinnerId(itemID):
   q +=   'select max(amount) from Bid '
   q +=   'where itemID = $itemID'
   q += ')'
-  
+
   result = query(q, { 'itemID': itemID })
 
   try:
