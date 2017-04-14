@@ -122,7 +122,7 @@ class add_bid:
 
     # (1) All fields must be filled
     if (itemID == '') or (price == '') or (userID == ''):
-      return render_template('add_bid.html', 
+      return render_template('add_bid.html',
         message = 'You must fill out every field'
       )
 
@@ -130,28 +130,28 @@ class add_bid:
 
     # (2) There must be an item with that ID
     if item_row == None:
-      return render_template('add_bid.html', 
+      return render_template('add_bid.html',
         message = 'There are no items with that ID'
       )
 
     # (3) Users can't bid on closed auction items
     if (string_to_time(item_row.ends) <= string_to_time(current_time)):
-      return render_template('add_bid.html', 
+      return render_template('add_bid.html',
         message = 'That auction is already closed'
       )
 
     # (4) UserID must correspond to an existing user in User table
     user_row = sqlitedb.getUserById(userID);
     if user_row == None:
-      return render_template('add_bid.html', 
+      return render_template('add_bid.html',
         message = 'There are no users with that ID'
       )
 
     # (5) Don't accept bids <= current highest bid
+    
     if float(price) <= float(item_row.currently):
-      return render_template('add_bid.html', 
-        message = 'You must make a bid higher than the current price (currently $' + item_row.currently + ')'
-      )
+      return render_template('add_bid.html',
+        message = 'You must make a bid higher than the current price')
 
     ### ... but it's possible to succeed :P ########################
 
@@ -160,7 +160,7 @@ class add_bid:
       # Update ends to current_time
       sqlitedb.updateItemEndTime(itemID, current_time);
       return render_template(
-        'add_bid.html', 
+        'add_bid.html',
         message = 'Congratulations! You just closed that auction by making a bid at or above the buy price'
       )
 
@@ -168,7 +168,7 @@ class add_bid:
     sqlitedb.addBid(itemID, price, userID, current_time)
 
     return render_template(
-      'add_bid.html', 
+      'add_bid.html',
       message = 'Success! You\'ve just placed a bid on ' + item_row.name + '(' + itemID + ')'
     )
 

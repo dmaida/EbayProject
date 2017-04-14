@@ -11,8 +11,8 @@ CREATE TABLE Item(
                     buy_price money,
                     first_bid money,
                     number_of_bids integer,
-                    started timestamp,
-                    ends timestamp   CHECK (julianday(ends) > julianday(started)),
+                    started text,
+                    ends text   CHECK (julianday(ends) > julianday(started)),
                     SellerID string references User,
                   	description varchar(4000));
 
@@ -29,11 +29,11 @@ CREATE TABLE Category(
                     FOREIGN KEY(itemID) references Item(itemID));
 
 CREATE TABLE Bid(
-                  itemID integer,
+                    itemID integer,
                  	userID varchar,
-                  time timestamp,
+                    currtime text,
                  	amount money,
-                 	PRIMARY KEY (itemID, time),
+                 	PRIMARY KEY (itemID, currtime),
                  	FOREIGN KEY(itemID) references Item(itemID),
                  	FOREIGN KEY(userID) references User(userID));
 

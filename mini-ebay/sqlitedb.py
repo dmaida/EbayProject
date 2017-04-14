@@ -1,6 +1,6 @@
 import web
 
-db = web.database(dbn='sqlite', db='Auction.db')
+db = web.database(dbn='sqlite', db='AuctionBase.db')
 
 ######################BEGIN HELPER METHODS######################
 
@@ -28,16 +28,16 @@ def transaction(): return db.transaction()
 
 # returns the current time from your database
 def getTime():
-  query_string = 'select time from CurrentTime'
+  query_string = 'select currtime from CurrentTime'
   results = query(query_string)
-  return results[0].time  # alternatively: return results[0]['time']
+  return results[0].currtime  # alternatively: return results[0]['time']
 
 
 
 def setTime(new_time):
   t = db.transaction()
   try:
-    db.update('CurrentTime', where="time", time = new_time)
+    db.update('CurrentTime', where="currtime", currtime = new_time)
   except Exception as e:
     t.rollback()
     print str(e)
@@ -48,7 +48,7 @@ def setTime(new_time):
 
 # returns a single item specified by the Item's ID in the database
 def getItemById(item_id):
-  q = 'select * from Item where ID = $itemID'
+  q = 'select * from Item where itemID = $itemID'
   result = query(q, { 'itemID': item_id })
 
   try:
@@ -79,7 +79,7 @@ def getUserById(user_id):
 def getItems(vars = {}, minPrice = '', maxPrice = '', status = 'all'):
   # Create basic query that selects all items
   q = 'select * from Item'
-    ############# 'where ends > (select time from currenttime)'
+    ############# 'where ends > (select time from CurrentTime)'
 
   if (vars != {}) or (minPrice != '') or (maxPrice != '') or (status != 'all'):
     q += ' where '
@@ -100,11 +100,11 @@ def getItems(vars = {}, minPrice = '', maxPrice = '', status = 'all'):
     if (vars != {}) or (minPrice != '') or (maxPrice != ''):
       q += ' AND '
     if status == 'open':
-      q += 'ends >= (select time from currenttime) and started <= (select time from currenttime)'
+      q += 'ends >= (select currtime from CurrentTime) and started <= (select currtime from CurrentTime)'
     if status == 'close':
-      q += 'ends < (select time from currenttime)'
+      q += 'ends < (select currtime from CurrentTime)'
     if status == 'notStarted':
-      q += 'started > (select time from currenttime)'
+      q += 'started > (select currtime from CurrentTime)'
 
   # Return result of the query
   return query(q)
@@ -112,14 +112,14 @@ def getItems(vars = {}, minPrice = '', maxPrice = '', status = 'all'):
 
 
 def updateItemEndTime(itemID, new_end_time):
-  db.update('Item',  where='ID = ' + itemID,  ends = new_end_time)
+  db.update('Item',  where='itemID = ' + itemID,  ends = new_end_time)
 
 
 def addBid(itemID, price, userID, current_time):
-  db.insert('Bid', itemID = itemID, amount = price, bidderID = userID, time = current_time)
+  db.insert('Bid', itemID = itemID, amount = price, userID = userID, currtime = current_time)
 
 def getWinnerId(itemID):
-  q  = 'select bidderID from Bid '
+  q  = 'select userID from Bid '
   q += 'where itemID = $itemID '
   q += 'and amount = ('
   q +=   'select max(amount) from Bid '
@@ -129,7 +129,7 @@ def getWinnerId(itemID):
   result = query(q, { 'itemID': itemID })
 
   try:
-    return result[0].bidderID
+    return result[0].userID
   except IndexError:
     return None
 

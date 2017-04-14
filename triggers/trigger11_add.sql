@@ -6,10 +6,10 @@ CREATE TRIGGER trigger_11
 before INSERT on Bid
 for each row
 when
-  (julianday(New.Time) > (select julianday(ends)
+  (julianday(New.currtime) > (select julianday(ends)
   from Item where itemID = New.itemID))
   OR
-  (julianday(New.Time) < (select julianday(started)
+  (julianday(New.currtime) < (select julianday(started)
   from Item where itemID = New.itemID))
 
 begin

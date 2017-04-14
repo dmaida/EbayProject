@@ -5,7 +5,7 @@ drop TRIGGER if exists trigger_15;
 CREATE TRIGGER trigger_15
 after INSERT on Bid
 for each row
-when julianday(New.time) != (select julianday(currtime) from CurrentTime)
+when julianday(New.currtime) != (select julianday(currtime) from CurrentTime)
 begin
   select raise(rollback, 'Wrong time!');
 end;
