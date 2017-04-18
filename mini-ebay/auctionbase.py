@@ -65,6 +65,7 @@ class search:
     def POST(self):
         post_params = web.input()
 
+
         return render_template("search.html")
 
 class curr_time:
