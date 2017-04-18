@@ -56,7 +56,18 @@ urls = (
   '/selecttime', 'select_time',
   '/add_bid', 'add_bid',
   '/search', 'search',
+  '/bid_details'
 )
+
+class bid_details:
+  def GET(self):
+    return render_template('bid_details.html')
+
+  def POST(self):
+    post_params = web.input()
+    # itemID = post_params['itemID']
+    return render_template('bid_details.html')
+
 
 class search:
     def GET(self):
@@ -66,41 +77,20 @@ class search:
         post_params = web.input()
 
         itemID = post_params['itemID']
-        price = post_params['price']
+        min_price = post_params['min_price']
+        max_price = post_params['max_price']
         category = post_params['category']
         description = post_params['description']
+        status = post_params['status']
 
-        q1 = q2 = q3 = q4 = None
-        criteria = []
+        criteria = {}
 
-    #################### SOME CHECKS ############################
-        if(itemID):
-            q1 = "Item.itemID = %s" % (itemID)
-            criteria.append(q1)
-        if(price):
-            q2 = "currently < %s" % (price)
-            criteria.append(q2)
-        if(category):
-            q3 = 'Item.itemID = Category.itemID and Category.category =  "%s"' % (category)
-            criteria.append(q3)
-        if(description):
-            q4 = "description like '%%%s%%'" % (description)
-            criteria.append(q4)
+        if(itemID != ''):
+          criteria['itemID'] = itemID
+        if (description != ''):
+          criteria['description'] = description
 
-        sql = []
-        for i in criteria:
-            sql.append(i)
-            sql.append(' and ')
-        sql.pop()
-
-        sqlStr = """select Item.name, Item.itemID, Item.currently, Category.category, Item.ends
-        from Item join Category where ("""
-        sqlStr += ''.join(sql)
-        sqlStr += ") Group By Item.itemID;"
-
-        print "\n\n", sqlStr, "\n\n"
-
-        result = sqlitedb.query(sqlStr)
+        result = sqlitedb.getItems(criteria, category, min_price, max_price, status)
 
         return render_template('search.html', search = result)
 

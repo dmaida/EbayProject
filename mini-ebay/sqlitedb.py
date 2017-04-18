@@ -72,12 +72,12 @@ def getUserById(user_id):
   except IndexError:
     return None
 
-def getItems(vars = {}, minPrice = '', maxPrice = '', status = 'all'):
+def getItems(vars = {}, category = '', minPrice = '', maxPrice = '', status = 'all'):
   # Create basic query that selects all items
-  q = 'select * from Item'
+  q = 'select Item.itemID, name, currently, ends from Item, Category'
     ############# 'where ends > (select time from CurrentTime)'
 
-  if (vars != {}) or (minPrice != '') or (maxPrice != '') or (status != 'all'):
+  if (vars != {}) or (category != '') or (minPrice != '') or (maxPrice != '') or (status != 'all'):
     q += ' where '
 
   # If params for the search are indicated, add them to
@@ -93,7 +93,7 @@ def getItems(vars = {}, minPrice = '', maxPrice = '', status = 'all'):
     if (maxPrice != ''):                    q += ' currently <= ' + maxPrice
 
   if (status != 'all'):
-    if (vars != {}) or (minPrice != '') or (maxPrice != ''):
+    if (vars != {}) or (category)or (minPrice != '') or (maxPrice != ''):
       q += ' AND '
     if status == 'open':
       q += 'ends >= (select currtime from CurrentTime) and started <= (select currtime from CurrentTime)'
@@ -101,8 +101,11 @@ def getItems(vars = {}, minPrice = '', maxPrice = '', status = 'all'):
       q += 'ends < (select currtime from CurrentTime)'
     if status == 'notStarted':
       q += 'started > (select currtime from CurrentTime)'
+  if (category != ''):
+    if (vars != {}) or (minPrice != '') or (maxPrice != '') or (status != 'all'):
+      q += ' AND '
+    q += 'Category.itemID = Item.itemID AND Category.category like "%%%s%%"' % category
 
-  # Return result of the query
   return query(q)
 
 
