@@ -93,7 +93,7 @@ def getItems(vars = {}, category = '', minPrice = '', maxPrice = '', status = 'a
     if (maxPrice != ''):                    q += ' currently <= ' + maxPrice
 
   if (status != 'all'):
-    if (vars != {}) or (category)or (minPrice != '') or (maxPrice != ''):
+    if (vars != {}) or (minPrice != '') or (maxPrice != ''):
       q += ' AND '
     if status == 'open':
       q += 'ends >= (select currtime from CurrentTime) and started <= (select currtime from CurrentTime)'
@@ -105,6 +105,8 @@ def getItems(vars = {}, category = '', minPrice = '', maxPrice = '', status = 'a
     if (vars != {}) or (minPrice != '') or (maxPrice != '') or (status != 'all'):
       q += ' AND '
     q += 'Category.itemID = Item.itemID AND Category.category like "%%%s%%"' % category
+
+  q += ' GROUP BY Item.itemID'
 
   return query(q)
 
