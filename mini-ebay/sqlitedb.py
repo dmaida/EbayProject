@@ -62,8 +62,6 @@ def getBidsByItemId(itemID):
   q = 'select * from Bid where itemID = $itemID'
   return query(q, {'itemID': itemID})
 
-
-
 # returns a single item specified by the Item's ID in the database
 def getUserById(user_id):
   q = 'select * from User where userID = $userID'
@@ -73,8 +71,6 @@ def getUserById(user_id):
     return result[0]
   except IndexError:
     return None
-
-
 
 def getItems(vars = {}, minPrice = '', maxPrice = '', status = 'all'):
   # Create basic query that selects all items
