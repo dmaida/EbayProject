@@ -55,9 +55,17 @@ urls = (
   '/currtime', 'curr_time',
   '/selecttime', 'select_time',
   '/add_bid', 'add_bid',
+  '/search', 'search',
 )
 
+class search:
+    def GET(self):
+        return render_template("search.html")
 
+    def POST(self):
+        post_params = web.input()
+
+        return render_template("search.html")
 
 class curr_time:
   # A simple GET request, to '/currtime'
@@ -148,7 +156,7 @@ class add_bid:
       )
 
     # (5) Don't accept bids <= current highest bid
-    
+
     if float(price) <= float(item_row.currently):
       return render_template('add_bid.html',
         message = 'You must make a bid higher than the current price')
