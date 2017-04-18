@@ -81,7 +81,7 @@ class search:
             q2 = "currently < %s" % (price)
             criteria.append(q2)
         if(category):
-            q3 = 'Item.itemID = Category.itemID and Category.name =  "%s"' % (category)
+            q3 = 'Item.itemID = Category.itemID and Category.category =  "%s"' % (category)
             criteria.append(q3)
         if(description):
             q4 = "description like '%%%s%%'" % (description)
@@ -93,7 +93,7 @@ class search:
             sql.append(' and ')
         sql.pop()
 
-        sqlStr = """select Item.name, Item.itemID, Item.currently, Category.name, Item.ends
+        sqlStr = """select Item.name, Item.itemID, Item.currently, Category.category, Item.ends
         from Item join Category where ("""
         sqlStr += ''.join(sql)
         sqlStr += ") Group By Item.itemID;"

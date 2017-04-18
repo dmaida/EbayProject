@@ -29,12 +29,26 @@
 <h3>Result</h3>
 
 <div class="alert alert-danger">Output:</div>
-<table class = "table">
+<table class="table table-responsive">
+<thead>
+<TR>
+	<th>itemID</th>
+	<th>Name</th>
+	<th>Category</th>
+	<th>Current Price</th>
+	<th>Ending Time</th>
+</TR>
+</thead>
+<tbody>
 {%for item in search%}
 <TR>
-	<TD class="table"><TC> {{item.itemID}} </TC><TC> {{item.name}} </TC>
-	<TC> {{item.category}} </TC> <TC> {{item.currently}} </TC><TC> {{item.ends}} </TC> </TD>
+	<TD> {{item.itemID}} </TD>
+	<TD> {{item.name}} </TD>
+	<TD> {{item.category}} </TD>
+	<TD> {{item.currently}} </TD>
+	<TD> {{item.ends}} </TD>
 </TR>
+</tbody>
 {% endfor %}
 </table>
 
