@@ -2,22 +2,19 @@
 {% block content %}
 <h3> Search </h3>
 <form method="POST" action="search" style="max-width:400px; width:100%">
-	{% if message is defined %}
-	<div class="alert alert-warning">{{ message }}</div>
-	{% endif %}
-	<div class="alert alert-info">All fields must be input</div>
+
 	<div class="form-group">
 	  <label for="itemID">Item ID</label>
 	  <input type="text" class="form-control" id="itemID" name="itemID" />
 	</div>
 	<div class="form-group">
-		<label for="category">Category</label>
-		<input type="text" class="form-control" id="category" name="category" />
+	  <label for="category">Item Category</label>
+	  <input type="text" name="category" class="form-control" id="category" />
 	</div>
-	<div class="form-group">
-		<label for="description">Item Description</label>
-		<input type="text" class="form-control" id="description" name="description" />
-	</div>
+  <div class="form-group">
+    <label for="description">Item Description</label>
+    <input type="text" name="description" class="form-control" id="description" />
+  </div>
 	<div class="form-group">
 	  <label for="price">Price</label>
 	  <input type="number" name="price" class="form-control" id="price" min="0" step="0.01" />
@@ -26,16 +23,24 @@
 		<input type="radio" name="status" value="open" checked> Open<br>
 		<input type="radio" name="status" value="close"> Closed<br>
 	</div>
-
-	<div class="form-group"><input type="submit" value="Search" class="btn btn-primary"/></div>
+	<div class="form-group"><input type="submit" value="Search!" class="btn btn-primary"/></div>
 </form>
 </center>
 <h3>Result</h3>
-{% if add_result %}
-<div class="alert alert-success">Successful</div>
-{% else %}
-<div class="alert alert-danger">Not successful</div>
-{% endif %}
 
+<div class="alert alert-danger">Output:</div>
+<table class = "table">
+{%for item in search%}
+<TR>
+	<TD class="table"><TC> {{item.itemID}} </TC><TC> {{item.name}} </TC>
+	<TC> {{item.category}} </TC> <TC> {{item.currently}} </TC><TC> {{item.ends}} </TC> </TD>
+
+
+
+</TR>
+{% endfor %}
+</table>
+
+<p>Test paragraph that are group rocks!</p>
 
 {% endblock %}

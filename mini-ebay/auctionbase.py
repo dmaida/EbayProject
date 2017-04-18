@@ -60,13 +60,55 @@ urls = (
 
 class search:
     def GET(self):
-        return render_template("search.html")
+        return render_template('search.html')
 
     def POST(self):
         post_params = web.input()
 
+        itemID = post_params['itemID']
+        price = post_params['price']
+        category = post_params['category']
+        description = post_params['description']
 
-        return render_template("search.html")
+        q1 = q2 = q3 = q4 = None
+        criteria = []
+
+    #################### SOME CHECKS ############################
+        if(itemID):
+            q1 = "Item.itemID = %s" % (itemID)
+            criteria.append(q1)
+        if(price):
+            q2 = "currently < %s" % (price)
+            criteria.append(q2)
+        if(category):
+            q3 = "category = '%s'" % (category)
+            criteria.append(q3)
+        if(description):
+            q4 = "description like '%%%s%%'" % (description)
+            criteria.append(q4)
+
+        sql = []
+        for i in criteria:
+            sql.append(i)
+            sql.append(' and ')
+        sql.pop()
+
+        sqlStr = """select Item.name, Item.itemID, Item.currently, Category.name, Item.ends
+        from Item join Category where ("""
+        sqlStr += ''.join(sql)
+        sqlStr += ") Group By Item.itemID, Item.name, Category.name, Item.currently;"
+
+        print "\n\n", sqlStr, "\n\n"
+
+        result = sqlitedb.query(sqlStr)
+
+        return render_template('search.html', search = result)
+
+    #################### TESTING ################################
+
+        ##displayCat = sqlitedb.getCategory(category)
+        ##return render_template('search.html', search = displayCat)
+
 
 class curr_time:
   # A simple GET request, to '/currtime'
