@@ -92,10 +92,8 @@ class search:
 
         if(itemID != ''):
           criteria['itemID'] = itemID
-        if (description != ''):
-          criteria['description'] = description
 
-        result = sqlitedb.getItems(criteria, category, min_price, max_price, status)
+        result = sqlitedb.getItems(criteria, category, description, min_price, max_price, status)
 
         return render_template('search.html', search = result)
 

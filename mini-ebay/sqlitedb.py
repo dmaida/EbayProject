@@ -72,12 +72,12 @@ def getUserById(user_id):
   except IndexError:
     return None
 
-def getItems(vars = {}, category = '', minPrice = '', maxPrice = '', status = 'all'):
+def getItems(vars = {}, category = '', description = '', minPrice = '', maxPrice = '', status = 'all'):
   # Create basic query that selects all items
-  q = 'select Item.itemID, name, currently, ends from Item, Category'
+  q = 'select Item.itemID, Item.name, currently, ends from Item, Category'
     ############# 'where ends > (select time from CurrentTime)'
 
-  if (vars != {}) or (category != '') or (minPrice != '') or (maxPrice != '') or (status != 'all'):
+  if (vars != {}) or (category != '') or (description != '') or (minPrice != '') or (maxPrice != '') or (status != 'all'):
     q += ' where '
 
   # If params for the search are indicated, add them to
@@ -105,6 +105,12 @@ def getItems(vars = {}, category = '', minPrice = '', maxPrice = '', status = 'a
     if (vars != {}) or (minPrice != '') or (maxPrice != '') or (status != 'all'):
       q += ' AND '
     q += 'Category.itemID = Item.itemID AND Category.category like "%%%s%%"' % category
+
+  if (description != ''):
+    if (vars != {}) or (category != '') or (minPrice != '') or (maxPrice != '') or (status != 'all'):
+      q += ' AND '
+    q += ' description like "%%%s%%"' % (description)
+
 
   q += ' GROUP BY Item.itemID'
 
