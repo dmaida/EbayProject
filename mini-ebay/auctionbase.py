@@ -56,18 +56,23 @@ urls = (
   '/selecttime', 'select_time',
   '/add_bid', 'add_bid',
   '/search', 'search',
-  '/bid_details'
+  '/bid_details', 'bid_details',
 )
 
 class bid_details:
-  def GET(self):
-    return render_template('bid_details.html')
+    def GET(self):
+        itemID = web.input(id='web')
+        details = web.websafe(itemID.id)
 
-  def POST(self):
-    post_params = web.input()
-    # itemID = post_params['itemID']
-    return render_template('bid_details.html')
+        q = "select * from Item where itemID = %s" % (details)
+        r = "select category from Category where itemID = %s" % (details)
+        s = "select userID, amount, currtime from Bid where itemID = %s" % (details)
 
+        Q = sqlitedb.query(q)
+        R = sqlitedb.query(r)
+        S = sqlitedb.query(s)
+
+        return render_template('bid_details.html', Item = Q, Cat = R, Bid = S)
 
 class search:
     def GET(self):

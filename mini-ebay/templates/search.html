@@ -48,7 +48,7 @@
 <tbody>
 {%for item in search%}
 <TR>
-	<TD> <a href="http://localhost:8080/bid_details" target="_blank">{{item.itemID}} </a> </TD>
+	<TD> <a href="http://localhost:8080/bid_details?id={{item.itemID}}" target="_blank">{{item.itemID}} </a> </TD>
 	<TD> {{item.name}} </TD>
 	<TD> {{item.currently}} </TD>
 	<TD> {{item.ends}} </TD>
