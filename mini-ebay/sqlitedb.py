@@ -104,7 +104,7 @@ def getItems(vars = {}, category = '', description = '', minPrice = '', maxPrice
   if (category != ''):
     if (vars != {}) or (minPrice != '') or (maxPrice != '') or (status != 'all'):
       q += ' AND '
-    q += 'Category.itemID = Item.itemID AND Category.category like "%%%s%%"' % category
+    q += 'Category.itemID = Item.itemID AND Category.name like "%%%s%%"' % (category)
 
   if (description != ''):
     if (vars != {}) or (category != '') or (minPrice != '') or (maxPrice != '') or (status != 'all'):

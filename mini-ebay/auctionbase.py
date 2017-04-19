@@ -65,7 +65,7 @@ class bid_details:
         details = web.websafe(itemID.id)
 
         q = "select * from Item where itemID = %s" % (details)
-        r = "select category from Category where itemID = %s" % (details)
+        r = "select name from Category where itemID = %s" % (details)
         s = "select userID, amount, currtime from Bid where itemID = %s" % (details)
 
         Q = sqlitedb.query(q)
