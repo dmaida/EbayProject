@@ -57,7 +57,27 @@ urls = (
   '/add_bid', 'add_bid',
   '/search', 'search',
   '/bid_details', 'bid_details',
+  '/add_user', 'add_user'
 )
+class add_user:
+    def GET(self):
+      return render_template('add_user.html')
+
+    def POST(self):
+        post_params = web.input()
+        userID = post_params['userID']
+        location = post_params['location']
+        country = post_params['country']
+        if (userID == '') or (location == '') or (country == ''):
+            return render_template('add_user.html',
+              message = 'You must fill out every field'
+            )
+        user_row = sqlitedb.getUserById(userID);
+        if user_row != None:
+          return render_template('add_user.html', message = 'This user ID is already taken.')
+
+        sqlitedb.addUser(userID, location, country)
+        return render_template('add_user.html')
 
 class bid_details:
     def GET(self):
@@ -72,7 +92,7 @@ class bid_details:
         R = sqlitedb.query(r)
         S = sqlitedb.query(s)
 
-        return render_template('bid_details.html', Item = Q, Cat = R, Bid = S)
+        return render_template('bid_details.html', item = Q, cat = R, bid = S)
 
 class search:
     def GET(self):
