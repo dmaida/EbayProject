@@ -89,7 +89,7 @@ class bid_details:
 
         q = "select * from Item where itemID = %s" % (details)
         r = "select name from Category where itemID = %s" % (details)
-        s = "select userID, amount, currtime from Bid where itemID = %s" % (details)
+        s = "select userID, amount, currtime from Bid where itemID = %s ORDER BY Bid.amount DESC" % (details)
 
         Q = sqlitedb.query(q)
         R = sqlitedb.query(r)
