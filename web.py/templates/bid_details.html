@@ -27,7 +27,7 @@
 
    <p> Categories: <br/>
    {% for i in Cat %}
-      {{i.category}} </p>
+      {{i.name}} </p>
    {% endfor %}
 
    <p> List of Bids: <br/>
@@ -38,7 +38,7 @@
    {{i.currtime}} <br/>
    {% set Win = False %}
    {% else %}
-       {{i.userID}} <br/>
+       User: {{i.userID}} <br/>
        $ {{i.amount}} <br/>
        {{i.currtime}} <br/>
        {% endif %}
