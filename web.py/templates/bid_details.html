@@ -10,7 +10,6 @@
 <body>
 
  <div>
-
    {% for i in Item %}
    <p> Item ID: {{i.itemID}} <br/>
        Item Name: {{i.name}} <br/>
@@ -25,6 +24,7 @@
      </p>
    {% endfor %}
 
+
    <p> Categories: <br/>
    {% for i in Cat %}
       {{i.category}} </p>
@@ -32,9 +32,16 @@
 
    <p> List of Bids: <br/>
    {% for i in Bid %}
+   {% if Win==true %}
+   <b>Winner: {{i.userID}} </b><br/>
+   $ {{i.amount}} <br/>
+   {{i.currtime}} <br/>
+   {% set Win = False %}
+   {% else %}
        {{i.userID}} <br/>
        $ {{i.amount}} <br/>
        {{i.currtime}} <br/>
+       {% endif %}
      </p>
    {% endfor %}
 

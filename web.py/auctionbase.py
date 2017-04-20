@@ -95,7 +95,16 @@ class bid_details:
         R = sqlitedb.query(r)
         S = sqlitedb.query(s)
 
-        return render_template('bid_details.html', Item = Q, Cat = R, Bid = S)
+        current_time = sqlitedb.getTime()
+
+        item_row = sqlitedb.getItemById(details)
+
+        winner = False
+        if (string_to_time(item_row.ends) <= string_to_time(current_time)):
+            #winner = sqlitedb.getWinnerId(details)
+            winner = True
+
+        return render_template('bid_details.html', Item = Q, Cat = R, Bid = S, Win = winner)
 
 class search:
     def GET(self):
