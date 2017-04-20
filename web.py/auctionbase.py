@@ -77,7 +77,10 @@ class add_user:
           return render_template('add_user.html', message = 'This user ID is already taken.')
 
         sqlitedb.addUser(userID, location, country)
-        return render_template('add_user.html')
+        return render_template(
+          'add_user.html',
+          message = 'Success!' + '(' + userID + ')' +'has been added.'
+        )
 
 class bid_details:
     def GET(self):
@@ -92,7 +95,7 @@ class bid_details:
         R = sqlitedb.query(r)
         S = sqlitedb.query(s)
 
-        return render_template('bid_details.html', item = Q, cat = R, bid = S)
+        return render_template('bid_details.html', Item = Q, Cat = R, Bid = S)
 
 class search:
     def GET(self):
@@ -111,7 +114,7 @@ class search:
         criteria = {}
 
         if(itemID != ''):
-          criteria['itemID'] = itemID
+          criteria['Item.itemID'] = itemID
 
         result = sqlitedb.getItems(criteria, category, description, min_price, max_price, status)
 
