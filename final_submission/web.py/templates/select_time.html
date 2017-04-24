@@ -1,0 +1,12 @@
+{% extends "app_base.html" %}
+{% block content %}
+<h3> Select a Time </h3>
+<img src="http://etc.usf.edu/clipart/33600/33609/clock-12-15_33609_md.gif" alt="HTML5 Icon" width="160" height="160">
+<form method="POST" action="selecttime" class="form-inline">
+{% if message is defined %}
+<div class="alert alert-warning">{{ message }}</div>
+{% endif %}
+<div class="alert alert-info">Please select a new time</div>
+{% include 'timetable.html' %}
+</form>
+{% endblock %}

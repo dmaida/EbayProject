@@ -1,0 +1,59 @@
+{% extends "app_base.html" %}
+{% block content %}
+<h3> Search </h3>
+<form method="POST" action="search" style="max-width:400px; width:100%">
+	<div class="form-group">
+	  <label for="itemID">Item ID</label>
+	  <input type="text" class="form-control" id="itemID" name="itemID" />
+	</div>
+	<div class="form-group">
+	  <label for="category">Item Category</label>
+	  <input type="text" name="category" class="form-control" id="category" />
+	</div>
+  <div class="form-group">
+    <label for="description">Item Description</label>
+    <input type="text" name="description" class="form-control" id="description" />
+  </div>
+	<div class="form-group">
+	  <label for="min_price">Min Price</label>
+	  <input type="number" name="min_price" class="form-control" id="min_price" min="0" step="0.01" />
+	</div>
+	<div class="form-group">
+	  <label for="max_price">Max Price</label>
+	  <input type="number" name="max_price" class="form-control" id="max_price" min="0" step="0.01" />
+	</div>
+
+	<div class = "form-group">
+		<input type="radio" name="status" value="open">Open<br>
+		<input type="radio" name="status" value="close">Closed<br>
+		<input type="radio" name="status" value="notStarted">Not Started<br>
+		<input type="radio" name="status" value="all" checked>All<br>
+	</div>
+	<div class="form-group"><input type="submit" value="Search!" class="btn btn-primary"/></div>
+</form>
+</center>
+<h3>Result</h3>
+
+<div class="alert alert-danger">Output:</div>
+<table class="table table-responsive">
+<thead>
+<TR>
+	<th>itemID</th>
+	<th>Name</th>
+	<th>Current Price</th>
+	<th>Ending Time</th>
+</TR>
+</thead>
+<tbody>
+{%for item in search%}
+<TR>
+	<TD> <a href="http://localhost:8080/bid_details?id={{item.itemID}}" target="_blank">{{item.itemID}} </a> </TD>
+	<TD> {{item.name}} </TD>
+	<TD> {{item.currently}} </TD>
+	<TD> {{item.ends}} </TD>
+</TR>
+</tbody>
+{% endfor %}
+</table>
+
+{% endblock %}

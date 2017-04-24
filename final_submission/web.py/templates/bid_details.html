@@ -1,0 +1,50 @@
+{% block content %}
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<head>
+    <title>AuctionBase</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+</head>
+
+<body>
+
+ <div>
+   {% for i in Item %}
+   <p> Item ID: {{i.itemID}} <br/>
+       Item Name: {{i.name}} <br/>
+       Current Price: {{i.currently}} <br/>
+       Buy Price: {{i.buy_price}} <br/>
+       First Bid: {{i.first_bid}} <br/>
+       Number of Bids: {{i.number_of_bids}} <br/>
+       Start Date: {{i.started}} <br/>
+       End Date: {{i.ends}} <br/>
+       Seller ID: {{i.SellerID}} <br/>
+       Description: {{i.description}} <br/>
+     </p>
+   {% endfor %}
+
+
+   <p> Categories: <br/>
+   {% for i in Cat %}
+      {{i.name}} </p>
+   {% endfor %}
+
+   <p> List of Bids: <br/>
+   {% for i in Bid %}
+   {% if Win==true %}
+   <b>Winner: {{i.userID}} </b><br/>
+   $ {{i.amount}} <br/>
+   {{i.currtime}} <br/>
+   {% set Win = False %}
+   {% else %}
+       User: {{i.userID}} <br/>
+       $ {{i.amount}} <br/>
+       {{i.currtime}} <br/>
+       {% endif %}
+     </p>
+   {% endfor %}
+
+ </div>
+</body>
+{% endblock %}
